@@ -14,35 +14,6 @@
 * **Обработка заказов:**  Автоматическое распределение товаров по грузовикам с учетом их вместимости.
 * **Моделирование доставки:**  Отображение процесса доставки и результатов (успешная доставка или ошибки).
 
-## Структура проекта:
-Use code with caution.
-Markdown
-LogisticManager/
-├── src/
-│ ├── models/
-│ │ ├── Product.cpp
-│ │ ├── Product.h
-│ │ ├── Warehouse.cpp
-│ │ ├── Warehouse.h
-│ │ ├── Truck.cpp
-│ │ ├── Truck.h
-│ │ └── Order.cpp
-│ │ └── Order.h
-│ ├── tests/
-│ │ ├── OrderTests.cpp
-│ │ └── OrderTests.h
-│ └── main.cpp
-├── include/
-│ ├── models/
-│ │ ├── Product.h
-│ │ ├── Warehouse.h
-│ │ ├── Truck.h
-│ │ └── Order.h
-│ └── tests/
-│ └── OrderTests.h
-├── Makefile
-└── README.md
-
 * **src/models:** Содержит классы, представляющие сущности предметной области (Product, Warehouse, Truck, Order).
 * **src/tests:** Содержит файлы с юнит-тестами для проверки функциональности.
 * **src/main.cpp:** Основной файл с точкой входа в программу.
