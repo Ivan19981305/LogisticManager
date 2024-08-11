@@ -5,6 +5,7 @@
 #include "Truck.h"
 #include "Order.h"
 #include "OrderTests.h"
+#include "Graph.h" 
 
 void runTests(){
     testSuccessfulDelivery();
@@ -14,6 +15,10 @@ void runTests(){
     testPartiallyFulfilledOrder();
     std::cout << "\n";
     testEmptyOrder();
+    std::cout << "\n";
+    testDeliveryRoute();
+    std::cout << "\n";
+    testDeliveryRouteWithObstacles();
     std::cout << "\n";
 }
 
@@ -40,7 +45,7 @@ void testSuccessfulDelivery() {
     
     // Обработка заказа с использованием метода processOrder
     if (!order1.processOrder(trucks)) {
-        std::cout << "Failed to fulfill the order due to insufficient truck capacity." << std::endl;
+        std::cout << "Failed to fulfill the order due to insufficient truck capacity.\n";
     }
 
     // Вывод информации
@@ -114,4 +119,85 @@ void testPartiallyFulfilledOrder() {
 
     warehouse.displayInventory(); 
     truck1.display();
+}
+
+void testDeliveryRoute() { 
+    std::cout << "Running testDeliveryRoute...\n";
+
+    // Создаем тестовый граф
+    Graph g(5); 
+    g.addEdge(0, 1, 10); 
+    g.addEdge(0, 3, 30);
+    g.addEdge(0, 4, 100);
+    g.addEdge(1, 2, 50);
+    g.addEdge(2, 4, 10);
+    g.addEdge(3, 4, 60);
+
+    // Создаем продукты
+    Product product1(1, "Product A", 2.5, 10);
+    Product product2(2, "Product B", 1.0, 20);
+
+    // Создаем склад и добавляем продукты
+    Warehouse warehouse(4, "Test Warehouse"); 
+    warehouse.addProduct(product1);
+    warehouse.addProduct(product2);
+
+    // Создаем грузовик
+    Truck truck(4, 10.0, "Truck Depot");
+
+    // Создаем заказ и добавляем продукты 
+    Order order(4, "Test Delivery"); 
+    order.products.emplace_back(product1, 2);  // 2 единицы Product A
+    order.products.emplace_back(product2, 5);  // 5 единиц Product B
+
+    // Запускаем обработку заказа 
+    std::vector<Truck*> trucks = {&truck};
+    order.processOrder(trucks, g); 
+
+    // Проверяем, что маршрут рассчитан верно 
+    std::vector<int> expectedRoute = {0, 1, 2, 4}; 
+    if (order.deliveryRoute != expectedRoute) { 
+        std::cout << "ERROR: Incorrect delivery route calculated.\n"; 
+    } 
+}
+
+void testDeliveryRouteWithObstacles() {
+    std::cout << "Running testDeliveryRouteWithObstacles...\n";
+    
+    // Создаем тестовый граф С ПРЕПЯТСТВИЕМ
+    Graph g(5); 
+    g.addEdge(0, 1, 10);
+    g.addEdge(0, 3, 30);
+    g.addEdge(1, 2, 50);
+    g.addEdge(2, 4, 10);
+    g.addEdge(3, 4, 60); // Этот путь есть
+    // g.addEdge(0, 4, 100); // Этого пути НЕТ!
+
+    // Создаем продукты
+    Product product1(1, "Product A", 2.5, 10);
+    Product product2(2, "Product B", 1.0, 20);
+
+    // Создаем склад и добавляем продукты
+    Warehouse warehouse(4, "Test Warehouse"); 
+    warehouse.addProduct(product1);
+    warehouse.addProduct(product2);
+
+    // Создаем грузовик
+    Truck truck(4, 10.0, "Truck Depot");
+
+    // Создаем заказ и добавляем продукты 
+    Order order(4, "Test Delivery"); 
+    order.products.emplace_back(product1, 2);  // 2 единицы Product A
+    order.products.emplace_back(product2, 5);  // 5 единиц Product B
+
+
+    // Запускаем обработку заказа 
+    std::vector<Truck*> trucks = {&truck};
+    order.processOrder(trucks, g); 
+
+    // Проверяем, что маршрут рассчитан верно 
+    std::vector<int> expectedRoute = {0, 3, 4}; // Ожидаем путь в объезд
+    if (order.deliveryRoute != expectedRoute) { 
+        std::cout << "ERROR: Incorrect delivery route calculated with obstacles.\n"; 
+    } 
 }

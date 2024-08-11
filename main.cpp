@@ -1,5 +1,6 @@
 #include <iostream>
 #include "OrderTests.h"
+#include "Graph.h" 
 
 int main() {
     testSuccessfulDelivery();  // Запуск теста с успешной доставкой

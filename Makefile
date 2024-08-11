@@ -14,7 +14,8 @@ SRC = $(MODELS_DIR)/Product.cpp \
       $(MODELS_DIR)/Truck.cpp \
       $(MODELS_DIR)/Order.cpp \
       $(TESTS_DIR)/OrderTests.cpp \
-      $(SRC_DIR)/main.cpp 
+      $(SRC_DIR)/main.cpp \
+      $(MODELS_DIR)/Graph.cpp # <-- Путь к Graph.cpp 
 OBJ = $(SRC:.cpp=.o)
 
 # Исполнительный файл
@@ -38,5 +39,9 @@ $(TARGET): $(OBJ)
 clean:
 	rm -f $(OBJ) $(TARGET)
 
+# Правило для запуска тестов
+test: $(TARGET)
+	./$(TARGET) 
+
 # Правило для компиляции с помощью команды make
-.PHONY: all clean
+.PHONY: all clean test 

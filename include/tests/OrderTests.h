@@ -6,5 +6,7 @@ void testUnsuccessfulDelivery();
 void testPartiallyFulfilledOrder();
 void testEmptyOrder();
 void runTests();
+void testDeliveryRoute();
+void testDeliveryRouteWithObstacles();
 
 #endif // ORDER_TESTS_H

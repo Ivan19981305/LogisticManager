@@ -42,3 +42,20 @@ bool Order::processOrder(std::vector<Truck*>& trucks) {
     std::cout << "Order fulfilled successfully." << std::endl;
     return true; // Заказ выполнен
 }
+
+bool Order::processOrder(std::vector<Truck*>& trucks, Graph& g) { 
+    // Предполагаем, что первый и последний город в маршруте - это склад и место доставки
+    int startCity = 0;  // Индекс склада
+    int endCity = 4;    // Индекс места доставки
+  
+    deliveryRoute = g.shortestPath(startCity, endCity);
+  
+    // Выводим маршрут 
+    std::cout << "Delivery route: ";
+    for (int city : deliveryRoute) {
+        std::cout << city << " ";
+    }
+    std::cout << std::endl;
+
+    return true;
+}
