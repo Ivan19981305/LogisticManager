@@ -3,5 +3,8 @@
 
 void testSuccessfulDelivery();
 void testUnsuccessfulDelivery();
+void testPartiallyFulfilledOrder();
+void testEmptyOrder();
+void runTests();
 
 #endif // ORDER_TESTS_H
