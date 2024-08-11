@@ -3,7 +3,7 @@ CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra
 
 # Исходные файлы и объектные файлы
-SRC = main.cpp Product.cpp Warehouse.cpp Truck.cpp Order.cpp
+SRC = main.cpp Product.cpp Warehouse.cpp Truck.cpp Order.cpp OrderTests.cpp
 OBJ = $(SRC:.cpp=.o)
 
 # Исполнительный файл

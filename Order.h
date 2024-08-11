@@ -3,16 +3,20 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include <utility> // Для std::pair
+#include "Truck.h"
+#include "Product.h"
 
 class Order {
 public:
     int id;
-    int productId;
-    int quantity;
     std::string deliveryLocation;
+    std::vector<std::pair<Product, int>> products; // Вектор пар продуктов и их количеств
 
-    Order(int id, int productId, int quantity, std::string deliveryLocation);
+    Order(int id, std::string deliveryLocation);
     void display();
+    bool processOrder(std::vector<Truck*>& trucks);
 };
 
 #endif // ORDER_H
